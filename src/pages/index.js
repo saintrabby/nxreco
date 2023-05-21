@@ -2,24 +2,20 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import { atom, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
+import { myAtoms } from './reco'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const myAtom = atom({
-  key: 'mykey1',
-  default: 0,
-})
-
 export default function Home() {
 
-  const [rec, setRec] = useRecoilState(myAtom)
+  const [reccount, setRecCount] = useRecoilState(myAtoms.myCount)
+  const [recstr, setRecStr] = useRecoilState(myAtoms.myString)
 
   const increment = () => {
-    setRec(rec + 1);
+    setRecCount(reccount + 1);
+    setRecStr(recstr + '!');
   };
-
-  console.log(rec);
 
   return (
     <>
@@ -32,7 +28,8 @@ export default function Home() {
       <main className={`${styles.main} ${inter.className}`}>
 
         <div className={styles.center}>asdf</div>
-        <p>Count: {rec}</p>
+        <p>Count: {reccount}</p>
+        <p>String: {recstr}</p>
         <button onClick={increment}>Increment</button>
       </main>
     </>
